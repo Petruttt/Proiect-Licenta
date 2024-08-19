@@ -7,7 +7,6 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Header from './components/Header'
 import Sites from './pages/Sites'
-import { Footer } from 'flowbite-react'
 import FooterComponent from './components/Footer'
 
 
