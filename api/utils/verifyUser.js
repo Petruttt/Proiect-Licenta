@@ -5,11 +5,11 @@ import {errorHandler} from './error.js';
 export const verifyToken = (req,res,next) => {
     const token = req.cookies.acces_token;
     if(!token){
-        return next(errorHandler('You are not authorized to access this route',401));
+        return next(errorHandler(401,'Unauthorized'));
     }
     jwt.verify(token,process.env.JWT_SECRET,(err,user)=>{
         if(err){
-            return next(errorHandler('You are not authorized to access this route',401));
+            return next(errorHandler(401,'Unauthorized'));
         }
         req.user = user;
         next();
