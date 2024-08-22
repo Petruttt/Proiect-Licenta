@@ -11,8 +11,9 @@ import { useDispatch } from 'react-redux'
 import { set } from 'mongoose'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import error from '../redux/user/userSlice'
+import { Link } from 'react-router-dom'
 export default function DashProfile() {
-  const {currentUser,error} = useSelector(state=>state.user)  
+  const {currentUser,error,loading} = useSelector(state=>state.user)  
   const [imageFile,setImageFile]=useState(null);
   const [imageFileUrl,setImageFileUrl]=useState(null);
   const [updateUserSucces,setUpdateUserSucces]=useState(null);
@@ -223,6 +224,17 @@ export default function DashProfile() {
           <Button type='submit' gradientDuoTone='purpleToBlue' outline>
             Update
           </Button>
+          {
+            currentUser.isAdmin && (
+              <Link to={'/create-post'}>
+              <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'>
+                Create a post
+              </Button>
+              </Link>
+          )}
         </form>
         <div className='flex justify-between mt-5 text-red-500'>
           <span onClick={()=>setShowModal(true)} className='cursor-pointer'> Delete Account </span>
