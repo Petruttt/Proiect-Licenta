@@ -18,6 +18,10 @@ export default function DashSidebar() {
     if(tabFromUrl === 'profile'){
       setTab('profile');
     }
+    if(tabFromUrl === 'posts'){
+      setTab('posts');
+    }
+    
   },[location.search]
 );
 const handleSignout = async () => {
