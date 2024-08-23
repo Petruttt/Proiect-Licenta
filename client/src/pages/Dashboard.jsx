@@ -12,6 +12,9 @@ export default function Dashboard() {
     if(tabFromUrl === 'profile'){
       setTab('profile');
     }
+    if(tabFromUrl === 'posts'){
+      setTab('posts');
+    }
   },[location.search]
 );
   

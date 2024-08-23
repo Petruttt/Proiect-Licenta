@@ -57,14 +57,13 @@ const handleSignout = async () => {
           </Sidebar.Item>
           </Link>
           <Link to='/dashboard?tab=posts'>
-              <Sidebar.Item
-                active={tab === 'posts'}
-                icon={HiDocumentText}
-                as='div'
-              >
-                Posts
-              </Sidebar.Item>
-            </Link>
+          <Sidebar.Item
+          active={tab==='posts'}
+          icon={HiDocumentText}
+          as='div'>
+            Posts
+          </Sidebar.Item>
+          </Link>
           <Sidebar.Item
            icon = {HiArrowSmRight} className='cursor-pointer'
            onClick={handleSignout}>
