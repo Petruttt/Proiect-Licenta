@@ -225,7 +225,6 @@ export default function DashProfile() {
             Update
           </Button>
           {
-            currentUser.isAdmin && (
               <Link to={'/create-post'}>
               <Button
               type='button'
@@ -233,8 +232,7 @@ export default function DashProfile() {
               className='w-full'>
                 Create a post
               </Button>
-              </Link>
-          )}
+              </Link>}
         </form>
         <div className='flex justify-between mt-5 text-red-500'>
           <span onClick={()=>setShowModal(true)} className='cursor-pointer'> Delete Account </span>

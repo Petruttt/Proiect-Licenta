@@ -24,8 +24,9 @@ export default function App() {
       <Route element = {<PrivateRoute/>}>
       <Route path= "/dashboard" element={<Dashboard/>}/>
       </Route>
-      <Route element = {<AdminPrivateRoute/>}>
       <Route path= "/create-post" element={<CreatePost/>}/>
+      <Route element = {<AdminPrivateRoute/>}>
+      
       </Route>
       <Route path="/sites" element = {<Sites/>}/>
       

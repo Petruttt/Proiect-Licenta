@@ -1,28 +1,27 @@
 import { errorHandler } from "../utils/error.js";
 import Post from "../models/post.model.js";
-
 export const createPost = async (req, res,next) => {
 
-    if(!req.body.title || !req.body.content){
-        return next(errorHandler(403,'Title and Content are required'));
-    
-    }
-    const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
+  if(!req.body.title || !req.body.content){
+      return next(errorHandler(403,'Title and Content are required'));
+  
+  }
+  const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '');
 
-    const newPost=new Post({
-        ...req.body,
-        slug,
-        userId:req.user.id
-    });
+  const newPost=new Post({
+      ...req.body,
+      slug,
+      userId:req.user.id
+  });
 
-    try{
-        const savedPost=await newPost.save();
-        res.status(201).json(savedPost);
-    }
-    catch(error){
-        next(error);
-    }
-}
+  try{
+      const savedPost=await newPost.save();
+      res.status(201).json(savedPost);
+  }
+  catch(error){
+      next(error);
+  }
+};
 
 export const getposts = async (req, res, next) => {
     try {
@@ -68,3 +67,45 @@ export const getposts = async (req, res, next) => {
       next(error);
     }
   };
+
+ 
+  export const deletePost = async (req, res, next) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.params.userId;
+
+        // Găsește postul
+        const post = await Post.findById(postId);
+
+        // Verifică dacă postul există
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        // Verifică dacă utilizatorul este creatorul postului sau un admin
+        if (post.userId !== userId && !req.user.isAdmin) {
+            return res.status(403).json({ message: 'You are not allowed to delete this post' });
+        }
+
+        // Șterge postul
+        await Post.findByIdAndDelete(postId);
+        res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+};
+/*
+ export const deletePost = async (req, res, next) => {
+    
+    try {
+      if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+        return next(errorHandler(403, 'You are not allowed to delete this post'));
+      }
+      await Post.findByIdAndDelete(req.params.postId);
+      res.status(200).json('The post has been deleted');
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  */
