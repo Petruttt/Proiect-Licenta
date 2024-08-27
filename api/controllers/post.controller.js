@@ -1,5 +1,6 @@
 import { errorHandler } from "../utils/error.js";
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 export const createPost = async (req, res,next) => {
 
   if(!req.body.title || !req.body.content){
@@ -45,6 +46,13 @@ export const getposts = async (req, res, next) => {
         .limit(limit);
   
       const totalPosts = await Post.countDocuments();
+      const postsWithAuthors = await Promise.all(posts.map(async post => {
+        const user = await User.findById(post.userId);
+        return {
+            ...post._doc,
+            author: user ? user.username : 'Unknown', // Adaugă numele autorului
+        };
+    }));
   
       const now = new Date();
   
@@ -59,7 +67,7 @@ export const getposts = async (req, res, next) => {
       });
   
       res.status(200).json({
-        posts,
+        posts : postsWithAuthors,
         totalPosts,
         lastMonthPosts,
       });
