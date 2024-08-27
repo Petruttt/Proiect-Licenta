@@ -1,6 +1,8 @@
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import User from '../models/user.model.js';
+import Comment from '../models/comment.model.js';
+import Post from '../models/post.model.js';
 export const test =  (req, res) => {
     res.json({
         message: 'API is working'
@@ -87,6 +89,9 @@ export const deleteUser = async (req, res, next) => {
         return next(errorHandler(403,'You are not authorized to delete this user'));
     }
     try{
+        await Comment.deleteMany({ userId: req.params.userId });
+        await Post.deleteMany({ userId: req.params.userId });
+
         await User.findByIdAndDelete(req.params.userId);
         res.status(200).json({message:'User has been deleted'});
     }
