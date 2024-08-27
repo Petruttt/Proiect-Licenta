@@ -1,6 +1,7 @@
 import { Button } from 'flowbite-react'
 import React, { useEffect,useState } from 'react'
 import {Link, useParams} from 'react-router-dom'
+import CommentSection from '../components/CommentSection'
 export default function PostPage() {
     const {postSlug} = useParams()
     const[error, setError] = useState(null)
@@ -29,8 +30,8 @@ export default function PostPage() {
         fetchPost();
     }, [postSlug])
   return (
-    <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-        <h1 className='text-3xl mt-10 p-3 text-center font-serif mx-w-2xl mx-auto lg:text-4xl'>
+    <main className='flex flex-col max-w-6xl min-h-screen p-3 mx-auto'>
+        <h1 className='p-3 mx-auto mt-10 font-serif text-3xl text-center mx-w-2xl lg:text-4xl'>
             {post && post.title}
             
             
@@ -50,9 +51,10 @@ export default function PostPage() {
                     {post && post.author}
                 </span>
             </div>
-            <div className='p-3 max-w-2xl mx-auto w-full post-content' dangerouslySetInnerHTML={{__html:post && post.content}}>
-
+            <div className='w-full max-w-2xl p-3 mx-auto post-content' dangerouslySetInnerHTML={{__html:post && post.content}}>
             </div>
+            {post && post._id && <CommentSection postId={post._id} />}
+
     </main>
   )
 }
