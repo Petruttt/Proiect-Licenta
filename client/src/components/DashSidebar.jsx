@@ -1,6 +1,6 @@
 import React from 'react'
 import {Sidebar} from 'flowbite-react'
-import {HiUser,HiArrowSmRight, HiDocumentText} from 'react-icons/hi'
+import {HiUser,HiArrowSmRight, HiDocumentText, HiOutlineUserGroup} from 'react-icons/hi'
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,13 +15,6 @@ export default function DashSidebar() {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
-    if(tabFromUrl === 'profile'){
-      setTab('profile');
-    }
-    if(tabFromUrl === 'posts'){
-      setTab('posts');
-    }
-    
   },[location.search]
 );
 const handleSignout = async () => {
@@ -64,6 +57,16 @@ const handleSignout = async () => {
             Posts
           </Sidebar.Item>
           </Link>
+          {currentUser.isAdmin && (
+              <Link to='/dashboard?tab=users'>
+              <Sidebar.Item
+              active = {tab==='users'}
+              icon ={HiOutlineUserGroup}
+              as='div'>
+                Users
+              </Sidebar.Item>
+              </Link>
+            )}
           <Sidebar.Item
            icon = {HiArrowSmRight} className='cursor-pointer'
            onClick={handleSignout}>
