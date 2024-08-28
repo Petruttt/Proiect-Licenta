@@ -54,6 +54,15 @@ export default function CommentSection({postId}) {
 
     }
     , [postId]);
+    
+    const handleEdit= async (comment, editedContent) => {
+      setComments(
+        comments.map((c) =>
+          c._id === comment._id ? { ...c, content: editedContent } : c
+        )
+      );
+    }
+      
 
   return (
     <div>
@@ -124,6 +133,7 @@ export default function CommentSection({postId}) {
                     <Comment
                     key={comment._id}
                     comment={comment}
+                    onEdit={handleEdit}
                     />
                 ))}
                 </>
