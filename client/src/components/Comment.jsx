@@ -99,13 +99,14 @@ export default function Comment({comment,onEdit,onDelete}) {
               <p className='pb-2 text-gray-500 dark:text-gray-300'>
                 {comment.content}
             </p>
+            <div className='flex justify-start gap-2'>
             {
               currentUser && currentUser._id === comment.userId && (
                 <button 
                 type='button'
                 onClick={handleEdit}
 
-                className='text-gray-500 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400'>
+                className='text-gray-800 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400'>
                     Edit
                 </button>
               )
@@ -116,10 +117,11 @@ export default function Comment({comment,onEdit,onDelete}) {
                 type='button'
                 onClick={()=>onDelete(comment._id)}
 
-                className='text-gray-500 dark:text-gray-300 hover:text-red-700 dark:hover:text-red-400'>
+                className='text-gray-800 dark:text-gray-300 hover:text-red-700 dark:hover:text-red-400'>
                     Delete
                 </button>
               )}
+            </div>
               </>
             )}
             

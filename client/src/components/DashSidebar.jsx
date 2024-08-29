@@ -1,6 +1,6 @@
 import React from 'react'
 import {Sidebar} from 'flowbite-react'
-import {HiUser,HiArrowSmRight, HiDocumentText, HiOutlineUserGroup} from 'react-icons/hi'
+import {HiUser,HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiAnnotation} from 'react-icons/hi'
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -58,6 +58,7 @@ const handleSignout = async () => {
           </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
+            <>
               <Link to='/dashboard?tab=users'>
               <Sidebar.Item
               active = {tab==='users'}
@@ -66,6 +67,15 @@ const handleSignout = async () => {
                 Users
               </Sidebar.Item>
               </Link>
+              <Link to='/dashboard?tab=comments'>
+              <Sidebar.Item
+              active = {tab==='comments'}
+              icon ={HiAnnotation}
+              as='div'>
+                Comments
+              </Sidebar.Item>
+              </Link>
+              </>
             )}
           <Sidebar.Item
            icon = {HiArrowSmRight} className='cursor-pointer'

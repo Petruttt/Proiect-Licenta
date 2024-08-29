@@ -4,6 +4,7 @@ import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 import DashPosts from '../components/DashPosts';
 import DashUsers from '../components/DashUsers';
+import DashComments from '../components/DashComments';
 export default function Dashboard() {
   const location = useLocation();
   const [tab, setTab] = useState('')
@@ -18,6 +19,9 @@ export default function Dashboard() {
     }
     if(tabFromUrl === 'users'){
       setTab('users');
+    }
+    if(tabFromUrl === 'comments'){
+      setTab('comments');
     }
   },[location.search]
 );
@@ -35,6 +39,8 @@ export default function Dashboard() {
       {tab === 'posts' && <DashPosts />}
       {/*users*/}
       {tab==='users' && <DashUsers/>}
+      {/*comments*/}
+      {tab==='comments' && <DashComments/>}
     </div>
   );
 }
